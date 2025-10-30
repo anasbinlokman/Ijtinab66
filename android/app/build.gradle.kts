@@ -20,6 +20,15 @@ android {
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("upload-keystore.jks")
+            storePassword = "password"
+            keyAlias = "upload"
+            keyPassword = "password"
+        }
+    }
+
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -49,6 +58,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
